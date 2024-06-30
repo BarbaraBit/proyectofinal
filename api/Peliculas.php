@@ -1,5 +1,5 @@
 <?php
-class Pelicula
+class Peliculas
 {
     public $id;
     public $titulo;
@@ -10,19 +10,19 @@ class Pelicula
     public $reparto;
     public $sinopsis;
 
-    public function __construct($titulo,$genero,$fecha_lanzamiento,$duracion=null,$director=null,$reparto=null,$sinopsis=null,$id=null)
+     public function __construct($titulo, $genero,$fecha_lanzamiento, $duracion=null, $director=null, $reparto=null, $sinopsis=null, $id=null)
     {
-      $this->id=$id;  
-      $this->titulo=$titulo;  
-      $this->genero=$genero; 
-      $this->fecha_lanzamiento=$fecha_lanzamiento; 
-      $this->duracion=$duracion;   
-      $this->director=$director; 
-      $this->reparto=$reparto;  
-      $this->sinopsis=$sinopsis;  
+      $this->id = $id;  
+      $this->titulo = $titulo;  
+      $this->genero = $genero; 
+      $this->fecha_lanzamiento = $fecha_lanzamiento; 
+      $this->duracion = $duracion;   
+      $this->director = $director; 
+      $this->reparto = $reparto;  
+      $this->sinopsis = $sinopsis;  
     }
 
-    public function fromArray($data)
+    public static function fromArray($data) 
     {
         return new self
         (
