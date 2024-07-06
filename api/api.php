@@ -5,62 +5,61 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 
 include 'db.php';
-include 'peliculas.php';
+include 'Peliculas.php';
 
-$method=$_SERVER['REQUEST_METHOD'];
-switch($method)
+$method = $_SERVER['REQUEST_METHOD'];
 
-{
-case 'GET':
-    handleGet($conn);
-    break;
-case 'POST':
-    handlePost($conn);
-    break;
-case 'PUT':
-    handlePut($conn);
-    break;
-case 'DELET':
-    handleDelete($conn); 
-    break;
-
-default:
-echo json_encode(['message'=>'Metodo no permitido']);
-break;
+switch ($method) {
+    case 'GET':
+        handleGet($conn);
+        break;
+    case 'POST':
+        handlePost($conn);
+        break;
+    case 'PUT':
+        handlePut($conn);
+        break;
+    case 'DELETE':        
+        handleDelete($conn);
+        break;
+    default:
+        echo json_encode(['message' => 'Método no permitido']);
+        break;
 }
-            
-function handleGet($conn)   
-    {
-        $id=isset($_GET['id']) ? intval($_GET['id']):0;
 
-        if($id>0)
-    
 
-    { 
-        $stmt=$conn->prepare("SELECT* FROM peliculas WHERE id =?");
-        $stmt->execute(['id']);
-        $pelicula=$stmt->fetch(PDO::FETCH_ASSOC);
-        if($pelicula)
-    
-    { 
-        $peliculaObj=Peliculas::fromArray($pelicula);
-       
-        echo json_encode($peliculaObj->toArray());
-    }
-    else
+function handleGet($conn) 
+{
+    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+    if ($id > 0) 
     {
-        http_response_code(404); 
-        echo json_encode(['message'=>'No se encontraron datos']);
-    }
-    }
-   else
+        $stmt = $conn->prepare("SELECT * FROM peliculas WHERE id = ?");
+        $stmt->execute([$id]);
+        $pelicula = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($pelicula) 
+        {
+            $peliculaObj = Peliculas::fromArray($pelicula);
+            echo json_encode($peliculaObj->toArray());
+        } 
+        else 
+        {
+            http_response_code(404);
+            echo json_encode(['message' => 'No se encontraron datos']);
+        }
+    } 
+    else 
     {
-        $stmt=$conn->query("SELECT* FROM peliculas" );
+        $stmt = $conn->query("SELECT * FROM peliculas");
         $peliculas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $peliculaObjs = array_map(fn($pelicula) => Peliculas::fromArray($pelicula)->toArray(), $peliculas);
         echo json_encode(['peliculas' => $peliculaObjs]);
     }
 }
+
+
+//este metodo es para ingresar peliculas
 function handlePost($conn) 
 {
     if ($conn === null) 
@@ -72,6 +71,7 @@ function handlePost($conn)
     $data = json_decode(file_get_contents('php://input'), true);
 
     $requiredFields = ['titulo', 'fecha_lanzamiento','genero' ];
+
     foreach ($requiredFields as $field) 
     {
         if (!isset($data[$field])) 
@@ -81,7 +81,7 @@ function handlePost($conn)
         }
     }
 
-    $pelicula=Peliculas::fromArray($data);
+    $pelicula = Peliculas::fromArray($data);
 
     try 
     {
@@ -104,6 +104,9 @@ function handlePost($conn)
         echo json_encode(['message' => 'Error al ingresar la película', 'error' => $e->getMessage()]);
     }
 }
+
+
+
 function handlePut($conn) 
 {
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -111,13 +114,14 @@ function handlePut($conn)
     if ($id > 0) 
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        $pelicula=Peliculas::fromArray($data);
+        $pelicula = Peliculas::fromArray($data);
         $pelicula->id = $id;
 
         $fields = [];
         $params = [];
 
-        if ($pelicula->titulo !== null) {
+        if ($pelicula->titulo !== null) 
+        {
             $fields[] = 'titulo = ?';
             $params[] = $pelicula->titulo;
         }
@@ -164,6 +168,8 @@ function handlePut($conn)
     }
 }
 
+
+//metodo para borrar registros
 function handleDelete($conn) 
 {
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -180,4 +186,3 @@ function handleDelete($conn)
     }
 }
 ?>
-
