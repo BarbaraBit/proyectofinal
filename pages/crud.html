@@ -17,9 +17,9 @@
     <nav class="navegacion">
         <a class="anclaLogo" href="#">
             <i class="fas fa-film" aria-hidden="true"></i>
-            <span>CRUD CAC-Movies</span>
+            <span> CAC-Movies</span>
         </a>
-
+        <h1 >Crud Peliculas</h1>
         <ul class="listaNav">
 <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
 <li class="listaItem"><a class="linkNav" href="./pages/registrarse.html">Registrarse</a></li>
@@ -30,7 +30,7 @@
 </header>
 
 <main id="main" class="main">
-    <section class="sectionFormulario">
+    <section class="sectionFormulario" data-aos="zoom-in"  data-aos-duration="1000">   
 <br>    
 <form id="itemForm" class="mb-4">
 <div class="row">
@@ -39,18 +39,18 @@
 
 <div class="form-group">
     <label for="titulo">Titulo:</label>
-    <input type="text" class="form-control" id="titulo" name="titulo" requerid >
+    <input type="text" class="form-control" id="titulo" name="titulo" required >
 </div>
 
 
 <div class="form-group">
     <label for="titulo">Fecha Lanz.:</label>
-    <input type="date" class="form-control" id="fecha_lanzamiento" name="fecha_lanzamiento"requerid >
+    <input type="date" class="form-control" id="fecha_lanzamiento" name="fecha_lanzamiento"required >
 </div>
 
 <div class="form-group">
     <label for="genero">Genero:</label>
-    <input type="text" class="form-control" id="genero" name="genero" requerid>
+    <input type="text" class="form-control" id="genero" name="genero" required>
 </div>
 <div class="form-group">
     <label for="duracion">Duracion:</label>
@@ -58,31 +58,31 @@
 </div>
 <div class="form-group">
     <label for="director">Director:</label>
-    <input type="text" class="form-control" id="director" name="director" requerid >
+    <input type="text" class="form-control" id="director" name="director" required >
 </div>
 
 <div class="form-group">
     <label for="reparto">Reparto:</label>
-    <input type="text" class="form-control" id="reparto" name="reparto" requerid >
+    <input type="text" class="form-control" id="reparto" name="reparto" required >
 </div>
 
 <div class="form-group">
     <label for="sinopsis">Sinopsis:</label>
-    <input type="text" class="form-control" id="sinopsis" name="sinopsis" requerid >
+    <input type="text" class="form-control" id="sinopsis" name="sinopsis" required>
 </div>
     </div>
 
     <div class="col">
         <div class="form-group">
             <label for="imagen">Imagen:</label>
-            <input type="file" accept="image/*" class="form-control" id="imagen" name="imagen" requerid >
+            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
         </div>
     </div>
 </div>
 <button type="submit" class="btn btn-primary">Guardar</button>
-</form>
-</section>
 
+</section>
+</form>
 
 <section class="sectionFormularioTabla">
     <h2>Peliculas</h2>
@@ -99,10 +99,11 @@
                 <th>Sinopsis</th>                        
                 <th colspan="2">Accciones</th>
             </tr>
+        </thead>
             <tbody id="itemsTableBody">
 
             </tbody>
-        </thead>
+     
     </table>
 
 </section>
@@ -125,6 +126,7 @@
 <script>
 AOS.init();
 </script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="./js/app.js"></script>
 </body>
 </html>
