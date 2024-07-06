@@ -1,16 +1,16 @@
 const API_SERVER = 'https://api.themoviedb.org/3'; //esto se cambiara por una api propia que tenga las peliculas en la base de mysql
 
 const options = {
-    method: 'GET', // Método de la petición (GET)
+    method: 'GET', 
     headers: {
-        accept: 'application/json', // Tipo de respuesta esperada (JSON)
+        accept: 'application/json', 
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYTJjYTAwZDYxZWIzOTEyYjZlNzc4MDA4YWQ3ZmNjOCIsInN1YiI6IjYyODJmNmYwMTQ5NTY1MDA2NmI1NjlhYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4MJSPDJhhpbHHJyNYBtH_uCZh4o0e3xGhZpcBIDy-Y8'
         
     }
 };
 
 const createElement = (tag, className, attributes = {}) => {
-    // Creamos un nuevo elemento HTML del tipo especificado (tag)
+   
     const element = document.createElement(tag);
     
        if (className) {
