@@ -1,36 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
- 
+    
     form.addEventListener('submit', (event) => {
         if (!validateForm()) {
-            console.log('El formulario no es válido. Por favor, corrige los errores.');
-            event.preventDefault(); // Esta línea evita que el formulario se envíe si hay errores de validación
+            console.log('El formulario no es válido. Por favor, corregir errores');
+            event.preventDefault(); 
         } else {
-            console.log('El formulario es válido. Enviar datos...');
-            
+            console.log('El formulario es válido. Enviar datos');
+    
         }
     });
 
     const validateForm = () => {
         let isValid = true;
 
-        
-        isValid = validateField('nombre', 'El nombre es obligatorio') && isValid;
-        
-        isValid = validateField('apellido', 'El apellido es obligatorio') && isValid;
+        isValid = validateField('nombre', 'campo nombre es obligatorio') && isValid;
 
-       isValid = validateEmailField('email', 'El correo electrónico no es válido') && isValid;
+        isValid = validateField('apellido', 'campo apellido es obligatorio') && isValid;
+
+        isValid = validateEmailField('email', 'El correo electrónico no es válido') && isValid;
 
         isValid = validateField('password', 'La contraseña es obligatoria') && isValid;
-        
-        isValid = validateField('fechaNacimiento', 'La fecha de nacimiento es obligatoria') && isValid;
+
+        isValid = validateField('fechaNacimiento', ' fecha de nacimiento es obligatoria') && isValid;
 
         isValid = validateField('pais', 'El país es obligatorio') && isValid;
 
         const terminos = document.getElementById('terminos').checked;
         if (!terminos) {
             isValid = false;
-            setErrorFor(document.getElementById('terminos'), 'Debes aceptar los términos y condiciones');
+            setErrorFor(document.getElementById('terminos'), 'Aceptar términos y condiciones');
         } else {
             setSuccessFor(document.getElementById('terminos'));
         }
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const field = document.getElementById(fieldId);
         const email = field.value.trim();
         if (email === '') {
-            setErrorFor(field, 'El correo electrónico es obligatorio');
+            setErrorFor(field, 'Email obligatorio');
             return false;
         } else if (!isEmail(email)) {
             setErrorFor(field, errorMessage);
@@ -84,23 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     };
-       
-      form.querySelectorAll('input').forEach(input => {
+    
+    form.querySelectorAll('input').forEach(input => {
         input.addEventListener('input', () => {
-            // Obtiene el valor del campo y elimina los espacios en blanco al principio y al final
-            const value = input.value.trim();
-             
-            if (value !== '') {
+        const value = input.value.trim();
+        if (value !== '') {
                 setSuccessFor(input);
             }
         });
     });
-      
-     form.querySelectorAll('select').forEach(select => {
+
+    form.querySelectorAll('select').forEach(select => {
         select.addEventListener('change', () => {
-            
+
             const value = select.value;
-             
+            
             if (value !== '') {
                 setSuccessFor(select);
             }
