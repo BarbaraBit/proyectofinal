@@ -11,22 +11,23 @@ class Peliculas
     public $sinopsis;
 
     
-    public function __construct($titulo,$fecha_lanzamiento,$genero,$duracion=null,$director=null,$reparto=null,$sinopsis=null,$id=null)
+    public function __construct($titulo, $fecha_lanzamiento, $genero, $duracion = null, $director = null, $reparto = null, $sinopsis = null, $id = null)
     {
-      $this->id=$id;  
-      $this->titulo=$titulo;  
-      $this->fecha_lanzamiento=$fecha_lanzamiento; 
-      $this->genero=$genero; 
-      $this->duracion=$duracion;   
-      $this->director=$director; 
-      $this->reparto=$reparto;  
-      $this->sinopsis=$sinopsis;  
+      $this->id = $id;  
+      $this->titulo = $titulo;  
+      $this->fecha_lanzamiento = $fecha_lanzamiento; 
+      $this->genero = $genero; 
+      $this->duracion = $duracion;   
+      $this->director = $director; 
+      $this->reparto = $reparto;  
+      $this->sinopsis = $sinopsis;  
     }
 
     public static function fromArray($data) 
     {
         return new self
         (
+            $data['id'] ?? null,
             $data['titulo'] ?? null,
             $data['fecha_lanzamiento'] ?? null,
             $data['genero'] ?? null,
@@ -34,7 +35,7 @@ class Peliculas
             $data['director'] ?? null,
             $data['reparto'] ?? null,
             $data['sinopsis'] ?? null,
-            $data['id'] ?? null,
+           
         );
 
 
