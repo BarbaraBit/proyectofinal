@@ -1,5 +1,4 @@
-const API_SERVER = 'https://api.themoviedb.org/3'; //esto se cambiara por una api propia que tenga las peliculas en la base de mysql
-
+const API_SERVER = 'https://localhost/proyectofinal/api/api.php'; 
 const options = {
     method: 'GET', 
     headers: {
@@ -10,36 +9,27 @@ const options = {
 };
 
 const createElement = (tag, className, attributes = {}) => {
-   
     const element = document.createElement(tag);
     
-       if (className) {
-        element.classList.add(className);
+    if (className) {
+    element.classList.add(className);
     }
     
-      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+    Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
     
-      return element;
+    return element;
 };
 
 const fetchMoviesGrid = async (page = 1) => {
-  
-    const response = await fetch(`${API_SERVER}/movie/popular?page=${page}`, options);
+const response = await fetch(`${API_SERVER}/movie/popular?page=${page}`, options);
     
-       const data = await response.json();
+const data = await response.json();
     
-   
-    const movies = data.results;
+const movies = data.results;
+const tendenciasContainer = document.querySelector('.peliculasTendencia .peliculas');
+tendenciasContainer.innerHTML = '';
 
- 
-    const tendenciasContainer = document.querySelector('.peliculasTendencia .peliculas');
-    
- 
-    tendenciasContainer.innerHTML = '';
-
-
-    movies.forEach(movie => {
-        
+movies.forEach(movie => {
         const pelicula = createElement('div', 'pelicula');
         const anchor = createElement('a', '');
         anchor.href = './pages/detalle.html';
@@ -52,36 +42,31 @@ const fetchMoviesGrid = async (page = 1) => {
         const titulo = createElement('h4', '');
         titulo.textContent = movie.title;
         
-       
-        tituloPelicula.appendChild(titulo); // Agregamos el título de la película al contenedor de título
-        pelicula.append(img, tituloPelicula); // Agregamos la imagen y el contenedor de título a la película
-        anchor.appendChild(pelicula); // Agregamos la película al enlace
-        const peliculaWrapper = createElement('div', 'peliculas'); // Creamos un contenedor adicional para la película
-        peliculaWrapper.appendChild(anchor); // Agregamos el enlace con la película al contenedor adicional
-        tendenciasContainer.appendChild(peliculaWrapper); // Agregamos el contenedor adicional al contenedor de tendencias
+        tituloPelicula.appendChild(titulo); 
+        pelicula.append(img, tituloPelicula); 
+        anchor.appendChild(pelicula); 
+        const peliculaWrapper = createElement('div', 'peliculas'); 
+        peliculaWrapper.appendChild(anchor); 
+        tendenciasContainer.appendChild(peliculaWrapper);
     });
 
- 
+    
     tendenciasContainer.parentElement.setAttribute('data-page', page);
 };
 
 
 const fetchMoviesFlex = async () => {
-  
+    
     const response = await fetch(`${API_SERVER}/movie/top_rated`, options);
     
-   
     const data = await response.json();
     
-   
     const movies = data.results;
 
-  
     const aclamadasContainer = document.querySelector('.aclamadas');
     
-  
     movies.forEach(movie => {
-       
+        
         const peliculaItem = createElement('div', 'peliculaItem');
         const img = createElement('img', 'imgAclamada', {
             src: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
@@ -90,32 +75,30 @@ const fetchMoviesFlex = async () => {
         });
         
         
-        peliculaItem.appendChild(img); // Agregamos la imagen al contenedor de la película
-        aclamadasContainer.appendChild(peliculaItem); // Agregamos el contenedor de la película al contenedor de películas aclamadas
+        peliculaItem.appendChild(img); 
+        aclamadasContainer.appendChild(peliculaItem); 
     });
 };
 
-
 document.querySelector('.anterior').addEventListener('click', () => {
-    // Obtener el número de página actual
+
     let currentPage = Number(document.querySelector('.peliculasTendencia').getAttribute('data-page'));
-    // Si es la primera página, no hacemos nada
+
     if (currentPage <= 1) return;
-    // Cargar las películas de la página anterior
+
     fetchMoviesGrid(currentPage - 1);
 });
 
 document.querySelector('.siguiente').addEventListener('click', () => {
-    
+
     let currentPage = Number(document.querySelector('.peliculasTendencia').getAttribute('data-page'));
-    // Cargar las películas de la página siguiente
+
     fetchMoviesGrid(currentPage + 1);
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargamos las películas en la cuadrícula de tendencias
+
     fetchMoviesGrid();
-    // Cargamos las películas en el carrusel de películas aclamadas
+
     fetchMoviesFlex();
 });
