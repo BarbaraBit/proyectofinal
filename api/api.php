@@ -46,7 +46,7 @@ function handleGet($conn)
         else 
         {
             http_response_code(404);
-            echo json_encode(['message' => 'No se encontraron datos']);
+            echo json_encode(['message' => 'No se encontraron los datos']);
         }
     } 
     else 
@@ -59,12 +59,11 @@ function handleGet($conn)
 }
 
 
-//este metodo es para ingresar peliculas
 function handlePost($conn) 
 {
     if ($conn === null) 
     {
-        echo json_encode(['message' => 'Error en la conexión a la base de datos']);
+        echo json_encode(['message' => 'Error de conexión a la base de datos']);
         return;
     }
 
@@ -93,8 +92,8 @@ function handlePost($conn)
             $pelicula->duracion,
             $pelicula->director,
             $pelicula->reparto,
-            $pelicula->sinopsis
-           
+            $pelicula->sinopsis,
+    
         ]);
 
         echo json_encode(['message' => 'Película ingresada correctamente']);
@@ -168,8 +167,6 @@ function handlePut($conn)
     }
 }
 
-
-//metodo para borrar registros
 function handleDelete($conn) 
 {
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -178,7 +175,7 @@ function handleDelete($conn)
     {
         $stmt = $conn->prepare("DELETE FROM peliculas WHERE id = ?");
         $stmt->execute([$id]);
-        echo json_encode(['message' => 'Película eliminada con éxito']);
+        echo json_encode(['message' => 'Película eliminada con exito']);
     } 
     else 
     {
