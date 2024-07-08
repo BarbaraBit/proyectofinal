@@ -11,7 +11,7 @@ class Peliculas
     public $sinopsis;
 
     
-    public function __construct($titulo, $fecha_lanzamiento, $genero, $duracion = null, $director = null, $reparto = null, $sinopsis = null, $id = null)
+    public function __construct( $id = null, $titulo, $fecha_lanzamiento, $genero, $duracion = null, $director = null, $reparto = null, $sinopsis = null)
     {
       $this->id = $id;  
       $this->titulo = $titulo;  
